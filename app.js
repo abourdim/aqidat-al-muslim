@@ -427,9 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initSplash() {
   let count = 5;
   const el = document.getElementById('splashCount');
-  if (!el) return;
   const featuresEl = document.getElementById('splashFeatures');
-  if (!featuresEl) return;
   if (featuresEl) {
     featuresEl.innerHTML = T[lang].splashFeatures.map((f, i) =>
       `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
@@ -443,7 +441,6 @@ function initSplash() {
 }
 function dismissSplash() {
   const s = document.getElementById('splash');
-  if (!s) return;
   if (s) { s.classList.add('hidden'); setTimeout(() => s.style.display = 'none', 500); }
   playSound('click');
 }
@@ -468,7 +465,6 @@ function setLang(l) {
   set('helpTitle', t.helpTitle); set('duaPanelTitle', t.duaPanelTitle);
   renderHome(); renderCreed(); renderPillars(); renderQuiz(); renderAbout(); renderHelp(); renderDuas(); renderXPBar();
   const featuresEl = document.getElementById('splashFeatures');
-  if (!featuresEl) return;
   if (featuresEl) {
     featuresEl.innerHTML = T[l].splashFeatures.map((f, i) =>
       `<div class="splash-feature" style="animation-delay:${0.3 + i * 0.3}s">${f}</div>`
@@ -483,7 +479,6 @@ function setTheme(t) {
   localStorage.setItem('aqm-theme', t);
   const idx = themes.indexOf(t);
   const el = document.getElementById('themeIcon');
-  if (!el) return;
   if (el) el.textContent = themeIcons[idx];
 }
 function cycleTheme() {
@@ -542,7 +537,6 @@ function getBadge() {
 }
 function renderXPBar() {
   const bar = document.getElementById('xpBar');
-  if (!bar) return;
   const lvl = getLevel();
   const thresholds = [0, 50, 150, 300, 500];
   const nextThreshold = lvl < 5 ? thresholds[lvl] : 500;
@@ -698,7 +692,6 @@ function renderQuizQuestion() {
   const t = T[lang];
   const q = QUIZ_DATA[currentQuizIdx];
   const container = document.getElementById('quizContainer');
-  if (!container) return;
   const opts = q.opts[lang].map((o, i) => {
     const hidden = usedLifelines.fiftyFifty && usedLifelines.removed && usedLifelines.removed.includes(i);
     return `<button class="quiz-opt ${hidden ? 'hidden' : ''}" id="qopt-${i}" onclick="checkAnswer(${i})" ${hidden ? 'disabled' : ''}>${o}</button>`;
@@ -727,7 +720,6 @@ function checkAnswer(idx) {
   const q = QUIZ_DATA[currentQuizIdx];
   const t = T[lang];
   const feedback = document.getElementById('quizFeedback');
-  if (!feedback) return;
   const isCorrect = idx === q.correct;
 
   quizTotal++;
@@ -782,7 +774,6 @@ function useHint() {
   const q = QUIZ_DATA[currentQuizIdx];
   usedLifelines.hint = true;
   const feedback = document.getElementById('quizFeedback');
-  if (!feedback) return;
   feedback.innerHTML = `<div class="feedback-hint">💡 ${q.hint[lang]}</div>`;
   feedback.classList.remove('hidden');
   document.querySelectorAll('.lifeline-btn')[1].classList.add('used');
@@ -794,7 +785,6 @@ function useQuranRef() {
   const q = QUIZ_DATA[currentQuizIdx];
   usedLifelines.quranRef = true;
   const feedback = document.getElementById('quizFeedback');
-  if (!feedback) return;
   feedback.innerHTML = `<div class="feedback-hint">📖 ${q.ref}</div>`;
   feedback.classList.remove('hidden');
   document.querySelectorAll('.lifeline-btn')[2].classList.add('used');
@@ -942,16 +932,13 @@ function initKeyboardNav() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const helpPanel = document.getElementById('helpPanel');
-      if (!helpPanel) return;
       if (!helpPanel.classList.contains('hidden')) { toggleHelp(); return; }
       const duaPanel = document.getElementById('duaPanel');
-      if (!duaPanel) return;
       if (!duaPanel.classList.contains('hidden')) { toggleDuaPanel(); return; }
       document.querySelectorAll('.creed-card.open').forEach(c => c.classList.remove('open'));
     }
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
       const creedPanel = document.getElementById('panel-creed');
-      if (!creedPanel) return;
       if (!creedPanel || !creedPanel.classList.contains('active')) return;
       if (document.activeElement && document.activeElement.id === 'creedSearch') return;
       e.preventDefault();
@@ -982,14 +969,11 @@ function toggleDuaPanel() {
 }
 function showToast(msg) {
   const t = document.getElementById('toast');
-  if (!t) return;
   const m = document.getElementById('toastMsg');
-  if (!m) return;
   if (t && m) { m.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
 }
 function initScrollTop() {
   const btn = document.getElementById('scrollTop');
-  if (!btn) return;
   window.addEventListener('scroll', () => {
     if (btn) btn.classList.toggle('visible', window.scrollY > 300);
   });
@@ -1015,7 +999,6 @@ function playSound(type) {
 // ═══════════════ TICKER ═══════════════
 (function initTicker() {
   const el = document.getElementById('tickerText');
-  if (!el) return;
   const msgs = {
     ar: ['☝️ لا إله إلا الله','📖 عقيدة المسلم — الشيخ محمد الغزالي','🕌 الصلاة عماد الدين','🌙 رمضان مدرسة التقوى','⭐ الإيمان يزيد بالطاعة'],
     en: ['☝️ There is no god but God',"📖 The Muslim's Creed — Sheikh al-Ghazali",'🕌 Prayer is the pillar of religion','🌙 Ramadan: school of piety','⭐ Faith increases with obedience'],
