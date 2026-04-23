@@ -692,6 +692,7 @@ function renderQuizQuestion() {
   const t = T[lang];
   const q = QUIZ_DATA[currentQuizIdx];
   const container = document.getElementById('quizContainer');
+  if (!container) return;
   const opts = q.opts[lang].map((o, i) => {
     const hidden = usedLifelines.fiftyFifty && usedLifelines.removed && usedLifelines.removed.includes(i);
     return `<button class="quiz-opt ${hidden ? 'hidden' : ''}" id="qopt-${i}" onclick="checkAnswer(${i})" ${hidden ? 'disabled' : ''}>${o}</button>`;
